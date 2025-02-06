@@ -12,8 +12,8 @@ export default function RootLayout() {
           headerTintColor: '#000000', // Text and icon color
         }}
       >
-        <Stack.Screen name="index" options={{ headerShown: false}}/>
-        <Stack.Screen name="sign-up" options={{ headerShown: false}}/>
+        <Stack.Screen name="(auth)" options={{ headerShown: false}}/>
+        {/* <Stack.Screen name="/(auth)/sign-up" options={{ headerShown: false}}/> */}
       </Stack>
       <StatusBar translucent backgroundColor="#1F9DFF" />
     </>
