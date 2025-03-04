@@ -6,27 +6,35 @@ const TextField = ({
     label,
     type,
     placeholder,
-    className
+    className,
+    onChange,
+    value,
+    hasError
 } : {
     label?: string,
-    type: "text" | "number" | "password",
+    type: "text" | "email" | "number" | "password",
     placeholder?: string,
-    className?: string
+    className?: string,
+    onChange?: any,
+    value?: any,
+    hasError?: boolean
 }) => {
     const [focused, setFocused] = useState(false)
     const [showPass, setShowPass] = useState(false)
 
   return (
     <View className='flex flex-col gap-[4px]'>
-      <Text className='text-[14px] font-bold text-[#32343D]'>{label}</Text>
-      <View className={`group flex flex-row items-center px-[14px] py-[2px] gap-[20px] border rounded-lg ${focused ? "border-primary" : "border-slate-200"}`}>
+      <Text className={`text-[14px] font-bold ${hasError? "text-red-500" : "text-[#32343D]"}`}>{label}</Text>
+      <View className={`group flex flex-row items-center px-[14px] py-[2px] gap-[20px] border rounded-lg ${hasError ? "border-red-500" : null} ${focused ? "border-primary" : "border-slate-200"}`}>
         <TextInput
             secureTextEntry={(type === "password" && !showPass) ? true : false}
-            keyboardType={type === "number" ? "numeric" : undefined}
+            keyboardType={type === "number" ? "numeric" : type === "email" ? "email-address" : undefined}
             className={`flex-1 ${className}`}
             placeholder={placeholder}
             onFocus={()=>setFocused(true)}
             onBlur={()=>setFocused(false)}
+            onChangeText={onChange}
+            value={value}
         />
         {type === "password" &&
             <TouchableOpacity
