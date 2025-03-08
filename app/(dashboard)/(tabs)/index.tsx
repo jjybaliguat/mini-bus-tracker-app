@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthContext'
 import images from '@/constants/images'
 import { Link } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
-import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps'
+import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps'
 import * as Location from 'expo-location';
 
 const Dashboard = () => {

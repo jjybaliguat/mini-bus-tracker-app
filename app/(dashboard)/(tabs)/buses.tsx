@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ActivityIndicator, TouchableOpacity, Image, TouchableOpacityProps, ScrollView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps'
@@ -6,6 +6,7 @@ import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import images from '@/constants/images';
 import { useRouter } from 'expo-router';
+import Popover from "react-native-popover-view";
 
 
 const BusesLiveLocation = () => {
@@ -19,6 +20,8 @@ const BusesLiveLocation = () => {
     const [loading, setLoading] = useState(true);
     const mapRef = useRef<MapView>(null);
     const router = useRouter()
+    const buttonRef = useRef<any>(null)
+    const [showBusList, setShowBusList] = useState(false);
   
     useEffect(() => {
       (async () => {
@@ -65,9 +68,9 @@ const BusesLiveLocation = () => {
           initialRegion={location}
           showsUserLocation
           showsMyLocationButton={false}
-          // showsCompass={true}
-          // mapPadding={{ top: 50, right: 20, bottom: 0, left: 0 }}
+          showsCompass
           showsTraffic
+          // mapPadding={{ top: 50, right: 20, bottom: 0, left: 0 }}
         >
           {/* {location && <Marker coordinate={location} title="You are here" />} */}
           {/* {loading && <ActivityIndicator size="large" className="mt-4" />} */}
@@ -82,7 +85,7 @@ const BusesLiveLocation = () => {
               shadowRadius: 20, // Blur effect
               elevation: 6, // Shadow for Android
           }}
-          className='p-2 flex-row justify-center items-center rounded-lg bg-white w-[50px] h-[50px]'>
+          className='p-3 flex-row justify-center items-center rounded-lg bg-white w-[50px] h-[50px]'>
             <Ionicons name="chevron-back-outline" size={25} />
           </TouchableOpacity>
           <View 
@@ -95,8 +98,29 @@ const BusesLiveLocation = () => {
           }}
           className='p-4 flex-row gap-2 justify-center items-center rounded-lg bg-white'>
             <Ionicons name="navigate" size={20} />
-            <Text className='font-semibold text-[16px]'>Bus Name</Text>
-            <Ionicons name="caret-down" size={14} color="#777777" />
+            <TouchableOpacity ref={buttonRef} onPress={() => setShowBusList(!showBusList)}>
+              <View className='flex-row gap-2 items-center'>
+                <Text className='font-semibold text-[16px]'>Bus Name</Text>
+                <Ionicons name="caret-down" size={14} color="#777777" />
+              </View>
+            </TouchableOpacity>
+            <Popover
+              isVisible={showBusList}
+              from={buttonRef} // Ensures the popover appears directly below the button
+              // placement="bottom"
+              onRequestClose={() => setShowBusList(false)}
+            >
+              <View className="p-4 bg-white shadow-lg rounded-lg">
+                <Text className='font-medium'>Select Bus</Text>
+                <ScrollView className='w-[100px] max-h-[100px]'>
+                {[...Array(10)].map((_, index)=>(
+                   <TouchableOpacity key={index} onPress={() => alert(`Option ${index+1} selected`)}>
+                    <Text className="p-2">Mini-Bus {index+1}</Text>
+                  </TouchableOpacity>
+                ))}
+                </ScrollView>
+              </View>
+            </Popover>
           </View>
         </View>
         <View className='flex-col w-full gap-2 absolute bottom-6'>

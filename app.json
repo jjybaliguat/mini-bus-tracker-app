@@ -1,21 +1,36 @@
 {
   "expo": {
-    "name": "gps-tracker",
-    "slug": "gps-tracker",
+    "name": "minibustracker",
+    "slug": "minibustracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "minibustracker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.justinejerald.minibustracker",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.justinejerald.minibustracker",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC2htJ2cbW1TWo7IJiF87suWH2JDDPI55k"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -32,10 +47,31 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "react-native-radar",
+        {
+          "ios": {
+            "publishableKey": "prj_test_pk_b5bd1c6e72c42c43f643e402cf3a5872db9e0fc4"
+          },
+          "android": {
+            "publishableKey": "prj_test_pk_b5bd1c6e72c42c43f643e402cf3a5872db9e0fc4"
+          }
+        }
       ]
     ],
+    "extra": {
+      "API_URL": "http://localhost:8000/api",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "42903c9c-aed4-4ca7-8964-37c6ce7bc81a"
+      }
+    },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "justinejerald"
   }
 }

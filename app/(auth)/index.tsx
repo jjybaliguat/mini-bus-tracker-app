@@ -12,7 +12,7 @@ type FormData = {
 };
 
 export default function Index() {
-  const {onLogin} = useAuth()
+  const {onLogin, googleLogin} = useAuth()
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<{ password?: string; email?: string }>({});
@@ -98,11 +98,13 @@ export default function Index() {
               <Text>or continue with</Text>
               <Text className="bg-[#8B8C9F] w-12 h-[1px]" />
             </View>
-            <Image
-              source={images.Google}
-              className="w-[44px] h-[44px]"
-              resizeMode="contain"
-            />
+            <TouchableOpacity onPress={googleLogin}>
+              <Image
+                source={images.Google}
+                className="w-[44px] h-[44px]"
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
